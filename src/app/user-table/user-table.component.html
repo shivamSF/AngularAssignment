@@ -1,1 +1,93 @@
 <app-navbar>loading...</app-navbar>
+<div class="text-center"><button class ="btn refresh "(click)= "onRefresh()">REFRESH</button></div>
+<hr>
+<form (ngSubmit) ="onSave(f)" #f="ngForm">
+<div>
+<table id="userTable" class="table table-hover" >
+    <caption>This is the table of users</caption>
+    <thead class="thead-light thead">
+<th scope="col">First Name</th>
+<th scope="col">Middle Name</th>
+<th scope="col">Last Name</th>
+<th scope="col">Customer</th>
+<th scope="col">Email</th>
+<th scope="col">Phone Number</th>
+<th scope="col">Role</th>
+<th scope="col">Address</th>
+<th scope="col">Created On</th>
+<th scope="col">Modified On</th>
+<th scope="col"></th>
+<th scope ="col"></th>
+</thead>
+<tbody id="userTableBody">
+    <tr *ngFor = "let user of userData">
+        <ng-container *ngIf = "checkCondition(user.id); else elseBlock">
+            <td><input class="form-control" type="text"
+                ngModel ="{{user.firstName}}"
+                name="firstName"
+                required
+                ></td>
+            <td><input class="form-control" type="text"
+                ngModel ="{{user.middleName}}"
+                name="middleName"
+                ></td>
+            <td><input class="form-control" type="text" ngModel="{{user.lastName}}"
+                name="lastName"
+                required
+                ></td>
+            <td>
+                <select class="form-control" [(ngModel)]="selectedCustomers" name="customerId">
+                    <option *ngFor="let customer of customers" value="{{customer.customerId}}" >
+                   {{customer.name}}
+               </option>
+               </select>
+            </td>
+            <td><input class="form-control" type="text" ngModel="{{user.email}}"
+                name="email"
+                required
+                email
+                #email = "ngModel"
+                ><span class="text-danger" *ngIf = "!email.valid">please enter a valid email</span></td>
+            <td><input class="form-control" type="text" ngModel="{{user.phone}}"
+                name="phone"
+                required
+                ></td>
+            <td>
+                <select class="form-control" [(ngModel)]="selectedRole" name="roleId">
+                 <option *ngFor="let role of roles" value="{{role.key}}" >
+                {{role.roleName}}
+            </option>
+            </select>
+        </td>
+            <td><input class="form-control" type="text" ngModel="{{user.address}}"
+                name="address"
+                required
+                ></td>
+            <td>{{user.createdOn}}</td>
+            <td>Auto Updated</td>
+<td>
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid" id="save{{user.id}}">SAVE</button> </td>
+           <td>     <button class="btn btn-warning" (click)='onCancel()'>CANCEL</button></td>
+        </ng-container>
+        <ng-template #elseBlock>
+        <td >{{user.firstName}}</td>
+        <td >{{user.middleName}}</td>
+        <td >{{user.lastName}}</td>
+        <td >{{user.name}}</td>
+        <td >{{user.email}}</td>
+        <td >{{user.phone}}</td>
+        <td >{{user.roleName}}</td>
+        <td>{{user.address}}</td>
+        <td>{{user.createdOn}}</td>
+        <td>{{user.modifiedOn}}</td>
+        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.roleId, user.customerId)'>EDIT</button> </td>
+           <td> <button class="btn btn-danger" (click)='onDelete(user.id)'>DELETE</button>
+                                    </td>
+                                </ng-template>
+    </tr>
+</tbody>
+</table>
+</div>
+</form>
+<app-add-data>loading...</app-add-data>
+

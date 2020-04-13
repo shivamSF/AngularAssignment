@@ -1,0 +1,74 @@
+<div class="text-center">
+    <button class ="btn btn-primary" [disabled]='isClicked' (click)='onClick()' >{{btnName}}</button>
+</div>
+<div *ngIf = "addUser else elseBlock">
+<form  (ngSubmit) ='onSave(f)' #f = "ngForm">
+    <ng-container *ngIf = "isClicked">
+    <tr>
+        <td><label>First Name</label>
+            <input type="text" class="form-control" ngModel
+            name="firstName"
+            required>
+        </td>
+        <td><label>Middle Name</label>
+            <input type="text" class="form-control" ngModel
+            name="middleName"
+             >
+        </td>
+        <td><label>Last Name</label>
+            <input type="text" class="form-control" ngModel
+            name="lastName"
+            required>
+        </td>
+        <td><label>Customer</label>
+            <select class="form-control" ngModel
+            name="customerId"
+            required><option *ngFor = "let customer of customers" value="{{customer.customerId}}">{{customer.name}}</option></select>
+        </td>
+        <td><label>Email</label>
+            <input type="text" class="form-control" ngModel
+            name="email"
+            required>
+        </td>
+        <td><label>Phone Number</label>
+            <input type="text" class="form-control" ngModel
+            name="phone"
+            required>
+        </td>
+        <td><label>Role</label>
+            <select class="form-control" ngModel
+            name="roleId"
+            ><option *ngFor = "let role of roles" value="{{role.key}}">{{role.roleName}}</option></select>
+        </td>
+        <td><label>address</label>
+            <input type="text" class="form-control" ngModel
+            name="address"
+            required>
+        </td>
+        <td><label> SAVE </label><button type="submit" class="btn btn-primary">SAVE</button></td>
+        <td><label> CANCEL </label><button class="btn btn-warning">CANCEL</button></td>
+    </tr>
+</ng-container>
+</form>
+</div>
+<ng-template #elseBlock>
+    <form>
+        <tr *ngIf= "isClicked">
+            <td>
+                <input class="form-control" ngModel
+                name="name"
+                required>
+            </td>
+            <td><input class = "form-control"
+                ngModel
+                name="website"
+                required
+                ></td>
+                <td><input class="form-control" 
+                ngModel
+                name="customerAddress"
+                required>
+                </td>
+        </tr>
+    </form>
+</ng-template>
