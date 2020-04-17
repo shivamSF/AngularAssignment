@@ -22,8 +22,8 @@
         </td>
         <td><label>Customer</label>
             <select class="form-control" ngModel
-            name="customerId"
-            required><option *ngFor = "let customer of customers" value="{{customer.customerId}}">{{customer.name}}</option></select>
+            name="CustomerId"
+            required><option *ngFor = "let customer of customers" value="{{customer.id}}">{{customer.name}}</option></select>
         </td>
         <td><label>Email</label>
             <input type="text" class="form-control" ngModel
@@ -38,7 +38,7 @@
         <td><label>Role</label>
             <select class="form-control" ngModel
             name="roleId"
-            ><option *ngFor = "let role of roles" value="{{role.key}}">{{role.roleName}}</option></select>
+            ><option *ngFor = "let role of roles" value="{{role.id}}">{{role.roleName}}</option></select>
         </td>
         <td><label>address</label>
             <input type="text" class="form-control" ngModel

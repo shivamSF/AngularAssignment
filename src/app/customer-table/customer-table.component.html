@@ -20,7 +20,7 @@
     <tbody id="userTableBody">
         <tr *ngFor = "let customer of customerData">
             <ng-container *ngIf = "checkCondition(customer.customerId); else elseBlock">
-                <td>{{customer.customerId}}</td>
+                <td>{{customer.id}}</td>
                 <td><input class="form-control" type="text"
                      ngModel="{{customer.name}}"
                      name="name"
@@ -36,19 +36,19 @@
                     name="customerAddress"
                     required
                     ></td>
-                <td>{{customer.customerCreatedOn}}</td>
+                <td>{{customer.createdAt}}</td>
                 <td>Auto Updated</td>
     <td>
                 <button class="btn btn-primary" type="submit">SAVE</button> </td>
                <td>     <button class="btn btn-warning" (click)='onCancel()'>CANCEL</button></td>
             </ng-container>
             <ng-template #elseBlock>
-            <td >{{customer.customerId}}</td>
+            <td >{{customer.id}}</td>
             <td >{{customer.name}}</td>
             <td >{{customer.website}}</td>
             <td >{{customer.customerAddress}}</td>
-            <td>{{customer.customerCreatedOn}}</td>
-            <td>{{customer.customerModifiedOn}}</td>
+            <td>{{customer.createdAt}}</td>
+            <td>{{customer.updatedAt}}</td>
             <td> <button class="btn btn-warning" id="edit{{customer.customerId}}" (click)='onEdit(customer.customerId)'>EDIT</button> </td>
                <td> <button class="btn btn-danger" (click)='onDelete(customer.customerId)'>DELETE</button>
                                         </td>

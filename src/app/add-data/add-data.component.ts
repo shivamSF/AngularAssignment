@@ -48,7 +48,6 @@ export class AddDataComponent implements OnInit {
   }
 }
 onSave(form:NgForm){
-  console.log(form.value)
 this.saveService.addUser(form.value);
 this.router.navigateByUrl("/refresh",{skipLocationChange:true}).then(() => {
   this.router.navigate([decodeURI(this.location.path())]);

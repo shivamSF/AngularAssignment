@@ -37,7 +37,7 @@
                 ></td>
             <td>
                 <select class="form-control" [(ngModel)]="selectedCustomers" name="customerId">
-                    <option *ngFor="let customer of customers" value="{{customer.customerId}}" >
+                    <option *ngFor="let customer of customers" value="{{customer.id}}" >
                    {{customer.name}}
                </option>
                </select>
@@ -54,7 +54,7 @@
                 ></td>
             <td>
                 <select class="form-control" [(ngModel)]="selectedRole" name="roleId">
-                 <option *ngFor="let role of roles" value="{{role.key}}" >
+                 <option *ngFor="let role of roles" value="{{role.id}}" >
                 {{role.roleName}}
             </option>
             </select>
@@ -73,14 +73,14 @@
         <td >{{user.firstName}}</td>
         <td >{{user.middleName}}</td>
         <td >{{user.lastName}}</td>
-        <td >{{user.name}}</td>
+        <td >{{user.Customer.name}}</td>
         <td >{{user.email}}</td>
         <td >{{user.phone}}</td>
-        <td >{{user.roleName}}</td>
+        <td >{{user.role.roleName}}</td>
         <td>{{user.address}}</td>
-        <td>{{user.createdOn}}</td>
-        <td>{{user.modifiedOn}}</td>
-        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.roleId, user.customerId)'>EDIT</button> </td>
+        <td>{{user.createdAt}}</td>
+        <td>{{user.updatedAt}}</td>
+        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.roleId, user.CustomerId)'>EDIT</button> </td>
            <td> <button class="btn btn-danger" (click)='onDelete(user.id)'>DELETE</button>
                                     </td>
                                 </ng-template>

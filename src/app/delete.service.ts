@@ -8,7 +8,7 @@ export class DeleteService {
 
   constructor(private http:HttpClient) { }
   deleteUser(userId){
-    this.http.get(`http://localhost:5000/deleteRow/deleteUser/${userId}`).subscribe( data =>{});
+    this.http.get(`http://localhost:5000/deleteData/deleteUser/${userId}`).subscribe( data =>{});
   }
   deleteCustomer(customerId){
     this.http.get(`http://localhost:5000/deleteRow/deleteCustomer/${customerId}`).subscribe( data =>{});

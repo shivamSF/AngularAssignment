@@ -11,7 +11,7 @@ export class RoleTableComponent implements OnInit {
   constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:5000/gettable/getRoles").subscribe(data => {
+    this.http.get("http://localhost:5000/getData/getRoles").subscribe(data => {
     this.roles = data;
   });
   }

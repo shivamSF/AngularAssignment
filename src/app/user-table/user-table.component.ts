@@ -29,15 +29,15 @@ export class UserTableComponent implements OnInit{
      ) { }
 
   ngOnInit(): void {
-   this.http.get("http://localhost:5000/getTable/getusers").subscribe(data => {
+   this.http.get("http://localhost:5000/getData/getUsers").subscribe(data => {
      this.userData = data;
      this.isClicked = false;
    });
-   this.http.get("http://localhost:5000/gettable/getRoles").subscribe(data => {
+   this.http.get("http://localhost:5000/getData/getRoles").subscribe(data => {
      this.roles = data;
      this.transferService.getRoles(data);
     });
-    this.http.get("http://localhost:5000/getTable/getCustomers").subscribe(data => {
+    this.http.get("http://localhost:5000/getData/getCustomers").subscribe(data => {
      this.customers = data;
      this.transferService.getCustomers(data)
    })
@@ -51,11 +51,11 @@ export class UserTableComponent implements OnInit{
       return false;
     }
   }
-  onEdit(userId, roleId ,customerId){
+  onEdit(userId, roleId ,CustomerId){
     this.isClicked = true;
     this.userId = userId;
     this.selectedRole = roleId;
-    this.selectedCustomers = customerId;
+    this.selectedCustomers = CustomerId;
 
   }
   onDelete(userId){

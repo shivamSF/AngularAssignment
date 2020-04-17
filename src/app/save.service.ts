@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class SaveService {
   constructor(private http:HttpClient, private router :Router) { }
   saveUsers(user, userId){
-   this.http.post(`http://localhost:5000/CUops/updateUser/${userId}`,user).subscribe(resp => {
+   this.http.post(`http://localhost:5000/updateData/updateUser/${userId}`,user).subscribe(resp => {
    });
   }
   saveCustomers(customer, customerId){
@@ -16,6 +16,6 @@ export class SaveService {
     }); 
   }
   addUser(user){
-    this.http.post('http://localhost:5000/CUops/addUser', user).subscribe(resp =>{});
+    this.http.post('http://localhost:5000/createData/createUser', user).subscribe(resp =>{});
   }
 }
