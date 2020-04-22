@@ -22,7 +22,7 @@ export class CustomerTableComponent implements OnInit {
     private deleteService:DeleteService) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:5000/getData/getCustomers").subscribe(data => {
+    this.http.get("http://localhost:3000/customers").subscribe(data => {
      this.customerData = data;
    })
   }

@@ -8,7 +8,10 @@
         <td><label>First Name</label>
             <input type="text" class="form-control" ngModel
             name="firstName"
+            pattern="^[A-z]{1,10}$"
+            #firstName = 'ngModel'
             required>
+            <span class="text-danger" *ngIf = '!firstName.valid && firstName.touched'>Enter a valid first name</span>
         </td>
         <td><label>Middle Name</label>
             <input type="text" class="form-control" ngModel
@@ -18,27 +21,35 @@
         <td><label>Last Name</label>
             <input type="text" class="form-control" ngModel
             name="lastName"
-            required>
+            pattern="^[A-z]{1,10}$"
+            #lastName = 'ngModel'
+            required><span class=" text-danger" *ngIf = '!lastName.valid && lastName.touched'>Enter a valid last name</span>
         </td>
         <td><label>Customer</label>
             <select class="form-control" ngModel
-            name="CustomerId"
-            required><option *ngFor = "let customer of customers" value="{{customer.id}}">{{customer.name}}</option></select>
+            name="customersId"
+            required><option *ngFor = "let customer of customers" [ngValue]="customer.id">{{customer.name}}</option></select>
         </td>
         <td><label>Email</label>
             <input type="text" class="form-control" ngModel
             name="email"
+            email
+            #email = 'ngModel'
             required>
+            <span class=" text-danger" *ngIf='!email.valid&& email.touched'>Enter the correct email</span>
         </td>
         <td><label>Phone Number</label>
             <input type="text" class="form-control" ngModel
             name="phone"
-            required>
+            pattern="^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$"
+            maxlength = '10'
+            #phone = 'ngModel'
+            required><span class=" text-danger" *ngIf = '!phone.valid && phone.touched'>Enter a valid phone number</span>
         </td>
         <td><label>Role</label>
             <select class="form-control" ngModel
-            name="roleId"
-            ><option *ngFor = "let role of roles" value="{{role.id}}">{{role.roleName}}</option></select>
+            name="rolesId"
+            ><option *ngFor = "let role of roles" [ngValue]="role.id">{{role.roleName}}</option></select>
         </td>
         <td><label>address</label>
             <input type="text" class="form-control" ngModel
@@ -46,29 +57,39 @@
             required>
         </td>
         <td><label> SAVE </label><button type="submit" class="btn btn-primary">SAVE</button></td>
-        <td><label> CANCEL </label><button class="btn btn-warning">CANCEL</button></td>
+        <td><label> CANCEL </label><button class="btn btn-warning"(click)='onCancel()'>CANCEL</button></td>
     </tr>
 </ng-container>
 </form>
 </div>
 <ng-template #elseBlock>
-    <form>
+    <form (ngSubmit) ='onSave(f)' #f = "ngForm">
+        <table class=" table table-light">
         <tr *ngIf= "isClicked">
-            <td>
+            <td><div class=" text-center">Customer Name</div>
                 <input class="form-control" ngModel
                 name="name"
-                required>
+                pattern="^[A-z]{1,10}$"
+                #name = 'ngModel'
+                required><span class=" text-danger" *ngIf='!name.valid && name.touched' >Enter a valid name</span>
             </td>
-            <td><input class = "form-control"
+            <td><div class=" text-center">WEBSITE</div><input class = "form-control"
                 ngModel
                 name="website"
+                pattern="^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$"
+                #website = 'ngModel'
                 required
-                ></td>
-                <td><input class="form-control" 
+                >
+            <span class=" text-danger" *ngIf='!website.valid && website.touched' >Enter a valid website</span>
+            </td>
+                <td><div class=" text-center">Customer Address</div><input class="form-control" 
                 ngModel
                 name="customerAddress"
                 required>
                 </td>
+                <td><div> SAVE </div><button type="submit" class="btn btn-primary">SAVE</button></td>
+                <td><div> CANCEL </div><button class="btn btn-warning" (click) = 'onCancel()'>CANCEL</button></td>
         </tr>
+    </table>
     </form>
 </ng-template>

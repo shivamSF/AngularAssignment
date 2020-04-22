@@ -48,10 +48,15 @@ export class AddDataComponent implements OnInit {
   }
 }
 onSave(form:NgForm){
+  if(this.addUser){
 this.saveService.addUser(form.value);
-this.router.navigateByUrl("/refresh",{skipLocationChange:true}).then(() => {
-  this.router.navigate([decodeURI(this.location.path())]);
-});
+ }
+  else{
+    this.saveService.addCustomer(form.value)
+  }
+  this.router.navigateByUrl("/refresh",{skipLocationChange:true}).then(() => {
+    this.router.navigate([decodeURI(this.location.path())]);
+  });
 }
 onCancel(){
   this.isClicked = false;

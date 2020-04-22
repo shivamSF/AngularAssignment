@@ -29,15 +29,15 @@ export class UserTableComponent implements OnInit{
      ) { }
 
   ngOnInit(): void {
-   this.http.get("http://localhost:5000/getData/getUsers").subscribe(data => {
+   this.http.get("http://localhost:3000/users").subscribe(data => {
      this.userData = data;
      this.isClicked = false;
    });
-   this.http.get("http://localhost:5000/getData/getRoles").subscribe(data => {
+   this.http.get("http://localhost:3000/roles").subscribe(data => {
      this.roles = data;
      this.transferService.getRoles(data);
     });
-    this.http.get("http://localhost:5000/getData/getCustomers").subscribe(data => {
+    this.http.get("http://localhost:3000/customers").subscribe(data => {
      this.customers = data;
      this.transferService.getCustomers(data)
    })

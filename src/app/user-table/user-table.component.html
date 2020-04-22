@@ -25,19 +25,23 @@
             <td><input class="form-control" type="text"
                 ngModel ="{{user.firstName}}"
                 name="firstName"
+                pattern="^[A-z]{1,10}$"
+                #firstName = 'ngModel'
                 required
-                ></td>
+                ><span class=" text-danger" *ngIf='!firstName.valid'>enter valid first name</span></td>
             <td><input class="form-control" type="text"
                 ngModel ="{{user.middleName}}"
                 name="middleName"
                 ></td>
             <td><input class="form-control" type="text" ngModel="{{user.lastName}}"
                 name="lastName"
+                pattern="^[A-z]{1,10}$"
+                #lastName='ngModel'
                 required
-                ></td>
+                ><span class=" text-danger" *ngIf='!lastName.valid'>enter valid last name</span></td>
             <td>
-                <select class="form-control" [(ngModel)]="selectedCustomers" name="customerId">
-                    <option *ngFor="let customer of customers" value="{{customer.id}}" >
+                <select class="form-control" [(ngModel)]="selectedCustomers" name="customersId">
+                    <option *ngFor="let customer of customers" [ngValue]="customer.id" >
                    {{customer.name}}
                </option>
                </select>
@@ -47,14 +51,17 @@
                 required
                 email
                 #email = "ngModel"
-                ><span class="text-danger" *ngIf = "!email.valid">please enter a valid email</span></td>
+                ><span class="text-danger" *ngIf = "!email.valid">Enter a valid email</span></td>
             <td><input class="form-control" type="text" ngModel="{{user.phone}}"
                 name="phone"
                 required
-                ></td>
+                maxlength="10"
+                pattern = '^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$'
+                #phone = "ngModel"
+                ><span class="text-danger" *ngIf = "!phone.valid">Enter a valid phone number</span></td>
             <td>
-                <select class="form-control" [(ngModel)]="selectedRole" name="roleId">
-                 <option *ngFor="let role of roles" value="{{role.id}}" >
+                <select class="form-control" [(ngModel)]="selectedRole" name="rolesId">
+                 <option *ngFor="let role of roles" [ngValue]="role.id" >
                 {{role.roleName}}
             </option>
             </select>
@@ -73,14 +80,14 @@
         <td >{{user.firstName}}</td>
         <td >{{user.middleName}}</td>
         <td >{{user.lastName}}</td>
-        <td >{{user.Customer.name}}</td>
+        <td >{{user.customers.name}}</td>
         <td >{{user.email}}</td>
         <td >{{user.phone}}</td>
-        <td >{{user.role.roleName}}</td>
+        <td >{{user.roles.roleName}}</td>
         <td>{{user.address}}</td>
-        <td>{{user.createdAt}}</td>
-        <td>{{user.updatedAt}}</td>
-        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.roleId, user.CustomerId)'>EDIT</button> </td>
+        <td>{{user.createdOn}}</td>
+        <td>{{user.modifiedOn}}</td>
+        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.rolesId, user.customersId)'>EDIT</button> </td>
            <td> <button class="btn btn-danger" (click)='onDelete(user.id)'>DELETE</button>
                                     </td>
                                 </ng-template>
