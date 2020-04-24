@@ -80,7 +80,10 @@
         <td >{{user.firstName}}</td>
         <td >{{user.middleName}}</td>
         <td >{{user.lastName}}</td>
-        <td >{{user.customers.name}}</td>
+        <td><ng-container *ngIf="isUserPerCustomer; else elseBlock">{{singleCustomer.name}}</ng-container>
+        <ng-template #elseBlock>{{user.customers.name}}</ng-template>
+        </td>
+
         <td >{{user.email}}</td>
         <td >{{user.phone}}</td>
         <td >{{user.roles.roleName}}</td>
@@ -96,5 +99,5 @@
 </table>
 </div>
 </form>
-<app-add-data>loading...</app-add-data>
+<app-add-data *ngIf='!isUserPerCustomer'>loading...</app-add-data>
 

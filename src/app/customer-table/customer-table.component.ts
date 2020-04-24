@@ -5,6 +5,7 @@ import { SaveService } from '../save.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { DeleteService } from '../delete.service';
+import { TransferService } from '../transfer.service';
 
 @Component({
   selector: 'app-customer-table',
@@ -19,10 +20,11 @@ export class CustomerTableComponent implements OnInit {
     private saveService:SaveService,
     private route:Router,
     private location:Location,
-    private deleteService:DeleteService) { }
+    private deleteService:DeleteService,
+    public transferService:TransferService) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:3000/customers").subscribe(data => {
+    this.transferService.getCustomers().subscribe(data => {
      this.customerData = data;
    })
   }
@@ -55,5 +57,9 @@ export class CustomerTableComponent implements OnInit {
     this.route.navigateByUrl("/refresh",{skipLocationChange:true}).then(() => {
       this.route.navigate([decodeURI(this.location.path())]);
     });
+  }
+  onShowUsers(customerId){
+    this.transferService.getUsersPerCustomer(customerId);
+    this.route.navigate(['usersPerCustomer'])
   }
 }

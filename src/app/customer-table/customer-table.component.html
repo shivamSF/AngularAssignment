@@ -12,6 +12,7 @@
     <th scope="col">Customer Name</th>
     <th scope="col">Website</th>
     <th scope="col">Address</th>
+    <th scope="col">Users Linked</th>
     <th scope="col">Created On</th>
     <th scope="col">Modified On</th>
     <th scope="col"></th>
@@ -40,6 +41,7 @@
                     name="customerAddress"
                     required
                     ></td>
+                    <td><button disabled = 'true' class=" disabled btn btn-primary">Show Users</button></td>
                 <td>{{customer.createdOn}}</td>
                 <td>Auto Updated</td>
     <td>
@@ -51,6 +53,7 @@
             <td >{{customer.name}}</td>
             <td >{{customer.website}}</td>
             <td >{{customer.customerAddress}}</td>
+            <td> <button class="btn btn-primary" (click)='onShowUsers(customer.id)'>Show Users</button></td>
             <td>{{customer.createdOn}}</td>
             <td>{{customer.modifiedOn}}</td>
             <td> <button class="btn btn-warning" id="edit{{customer.id}}" (click)='onEdit(customer.id)'>EDIT</button> </td>

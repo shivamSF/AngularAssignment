@@ -12,7 +12,8 @@ const routes: Routes = [
   {path:"usersTable",component:UserTableComponent},
   {path:"customersTable",component:CustomerTableComponent},
   {path:"rolesTable",component:RoleTableComponent},
-  {path: "refresh", component:RefreshComponent}
+  {path: "refresh", component:RefreshComponent},
+  {path: "usersPerCustomer", component:UserTableComponent}
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TransferService } from '../transfer.service';
 
 @Component({
   selector: 'app-role-table',
@@ -8,10 +9,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RoleTableComponent implements OnInit {
   roles;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+    private transferService:TransferService
+    ) { }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:3000/roles").subscribe(data => {
+    this.transferService.getRoles().subscribe(data => {
     this.roles = data;
   });
   }

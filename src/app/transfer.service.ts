@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferService {
-  customers;
-  roles;
-  constructor() { }
-  getCustomers(customers){
-  this.customers=customers;
+  customerId
+  constructor(private http: HttpClient) { }
+  getUsers(){
+    return this.http.get(environment.usersUrl)
   }
-  getRoles(roles){
-    this.roles =  roles;
+  getRoles(){
+    return this.http.get(environment.rolesUrl)
   }
-  returnCustomers(){
-    return this.customers;
+  getCustomers(){
+    return this.http.get(environment.customersUrl)
   }
-  returnRoles(){
-    return this.roles;
+  getUsersPerCustomer(customerId){
+    this.customerId = customerId;
+  }
+  returnUsersPerCustomers(){
+    return this.http.get(environment.customersUrl+'/'+this.customerId+`/users`)
+  }
+  returnSingleCustomer(){
+    return this.http.get(environment.customersUrl+'/'+this.customerId)
   }
 }

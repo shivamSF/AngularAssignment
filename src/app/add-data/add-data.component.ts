@@ -37,8 +37,12 @@ export class AddDataComponent implements OnInit {
   }
   onClick(){
     this.isClicked= true;
-    this.customers =this.transferService.returnCustomers();
-    this.roles = this.transferService.returnRoles();
+    this.transferService.getCustomers().subscribe(data => {
+      this.customers = data;
+    })
+    this.transferService.getRoles().subscribe(data => {
+      this.roles = data;
+    })
 
   if(this.pathName=='usersTable'){
     this.addUser=true;

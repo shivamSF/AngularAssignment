@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { SaveService } from '../save.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
 import { DeleteService } from '../delete.service';
 import { TransferService } from '../transfer.service';
@@ -18,28 +18,42 @@ export class UserTableComponent implements OnInit{
   userId;
   roles;
   customers;
+  singleCustomer;
   selectedRole;
+  singleRole;
   selectedCustomers;
+  isUserPerCustomer = false;
   constructor(private http :HttpClient,
      private saveService:SaveService, 
      private route:Router ,
      private location:Location,
      private deleteService:DeleteService,
-     private transferService:TransferService
+     private transferService:TransferService,
+     private activeRoute: ActivatedRoute
      ) { }
 
   ngOnInit(): void {
-   this.http.get("http://localhost:3000/users").subscribe(data => {
+
+    let pathName= this.activeRoute.snapshot.routeConfig.path;
+    if(pathName == 'usersPerCustomer'){
+      this.isUserPerCustomer = true;
+      this.transferService.returnUsersPerCustomers().subscribe(data => {
+        this.userData = data;
+      })
+      this.transferService.returnSingleCustomer().subscribe(data => {
+        this.singleCustomer = data;
+      })
+    }
+    else{
+   this.transferService.getUsers().subscribe(data => {
      this.userData = data;
-     this.isClicked = false;
    });
-   this.http.get("http://localhost:3000/roles").subscribe(data => {
+  }
+   this.transferService.getRoles().subscribe(data => {
      this.roles = data;
-     this.transferService.getRoles(data);
     });
-    this.http.get("http://localhost:3000/customers").subscribe(data => {
+    this.transferService.getCustomers().subscribe(data => {
      this.customers = data;
-     this.transferService.getCustomers(data)
    })
    
   }
