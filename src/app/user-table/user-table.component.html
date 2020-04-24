@@ -1,0 +1,103 @@
+<app-navbar>loading...</app-navbar>
+<div class="text-center"><button class ="btn refresh "(click)= "onRefresh()">REFRESH</button></div>
+<hr>
+<form (ngSubmit) ="onSave(f)" #f="ngForm">
+<div>
+<table id="userTable" class="table table-hover" >
+    <caption>This is the table of users</caption>
+    <thead class="thead-light thead">
+<th scope="col">First Name</th>
+<th scope="col">Middle Name</th>
+<th scope="col">Last Name</th>
+<th scope="col">Customer</th>
+<th scope="col">Email</th>
+<th scope="col">Phone Number</th>
+<th scope="col">Role</th>
+<th scope="col">Address</th>
+<th scope="col">Created On</th>
+<th scope="col">Modified On</th>
+<th scope="col"></th>
+<th scope ="col"></th>
+</thead>
+<tbody id="userTableBody">
+    <tr *ngFor = "let user of userData">
+        <ng-container *ngIf = "checkCondition(user.id); else elseBlock">
+            <td><input class="form-control" type="text"
+                ngModel ="{{user.firstName}}"
+                name="firstName"
+                pattern="^[A-z]{1,10}$"
+                #firstName = 'ngModel'
+                required
+                ><span class=" text-danger" *ngIf='!firstName.valid'>enter valid first name</span></td>
+            <td><input class="form-control" type="text"
+                ngModel ="{{user.middleName}}"
+                name="middleName"
+                ></td>
+            <td><input class="form-control" type="text" ngModel="{{user.lastName}}"
+                name="lastName"
+                pattern="^[A-z]{1,10}$"
+                #lastName='ngModel'
+                required
+                ><span class=" text-danger" *ngIf='!lastName.valid'>enter valid last name</span></td>
+            <td>
+                <select class="form-control" [(ngModel)]="selectedCustomers" name="customersId">
+                    <option *ngFor="let customer of customers" [ngValue]="customer.id" >
+                   {{customer.name}}
+               </option>
+               </select>
+            </td>
+            <td><input class="form-control" type="text" ngModel="{{user.email}}"
+                name="email"
+                required
+                email
+                #email = "ngModel"
+                ><span class="text-danger" *ngIf = "!email.valid">Enter a valid email</span></td>
+            <td><input class="form-control" type="text" ngModel="{{user.phone}}"
+                name="phone"
+                required
+                maxlength="10"
+                pattern = '^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$'
+                #phone = "ngModel"
+                ><span class="text-danger" *ngIf = "!phone.valid">Enter a valid phone number</span></td>
+            <td>
+                <select class="form-control" [(ngModel)]="selectedRole" name="rolesId">
+                 <option *ngFor="let role of roles" [ngValue]="role.id" >
+                {{role.roleName}}
+            </option>
+            </select>
+        </td>
+            <td><input class="form-control" type="text" ngModel="{{user.address}}"
+                name="address"
+                required
+                ></td>
+            <td>{{user.createdOn}}</td>
+            <td>Auto Updated</td>
+<td>
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid" id="save{{user.id}}">SAVE</button> </td>
+           <td>     <button class="btn btn-warning" (click)='onCancel()'>CANCEL</button></td>
+        </ng-container>
+        <ng-template #elseBlock>
+        <td >{{user.firstName}}</td>
+        <td >{{user.middleName}}</td>
+        <td >{{user.lastName}}</td>
+        <td><ng-container *ngIf="isUserPerCustomer; else elseBlock">{{singleCustomer.name}}</ng-container>
+        <ng-template #elseBlock>{{user.customers.name}}</ng-template>
+        </td>
+
+        <td >{{user.email}}</td>
+        <td >{{user.phone}}</td>
+        <td >{{user.roles.roleName}}</td>
+        <td>{{user.address}}</td>
+        <td>{{user.createdOn}}</td>
+        <td>{{user.modifiedOn}}</td>
+        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.rolesId, user.customersId)'>EDIT</button> </td>
+           <td> <button class="btn btn-danger" (click)='onDelete(user.id)'>DELETE</button>
+                                    </td>
+                                </ng-template>
+    </tr>
+</tbody>
+</table>
+</div>
+</form>
+<app-add-data *ngIf='!isUserPerCustomer'>loading...</app-add-data>
+

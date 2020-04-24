@@ -1,0 +1,68 @@
+<app-navbar>loading...</app-navbar>
+<div class="text-center">
+<button class="btn refresh" (click)="onRefresh()">REFRESH</button></div>
+
+<hr>
+<form (ngSubmit)="onSave(f)" #f="ngForm" >
+<div>
+    <table id="userTable" class="table table-hover" >
+        <caption>This is the table of customers</caption>
+        <thead class="thead-light thead">
+    <th scope="col">Customer ID</th>
+    <th scope="col">Customer Name</th>
+    <th scope="col">Website</th>
+    <th scope="col">Address</th>
+    <th scope="col">Users Linked</th>
+    <th scope="col">Created On</th>
+    <th scope="col">Modified On</th>
+    <th scope="col"></th>
+    <th scope ="col"></th>
+    </thead>
+    <tbody id="userTableBody">
+        <tr *ngFor = "let customer of customerData">
+            <ng-container *ngIf = "checkCondition(customer.id); else elseBlock">
+                <td>{{customer.id}}</td>
+                <td><input class="form-control" type="text"
+                     ngModel="{{customer.name}}"
+                     name="name"
+                pattern="^[A-z]{1,10}$"
+                #name = 'ngModel'
+                required><span class=" text-danger" *ngIf='!name.valid && name.touched' >Enter a valid name</span></td>
+                <td><input class="form-control" type="text" 
+                    ngModel="{{customer.website}}"
+                    name="website"
+                    pattern="^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+(-?[a-zA-Z0-9])*\.)+[\w]{2,}(\/\S*)?$"
+                    #website = 'ngModel'
+                    required
+                    >
+                <span class=" text-danger" *ngIf='!website.valid && website.touched' >Enter a valid website</span></td>
+                <td><input class="form-control" type="text" 
+                    ngModel="{{customer.customerAddress}}"
+                    name="customerAddress"
+                    required
+                    ></td>
+                    <td><button disabled = 'true' class=" disabled btn btn-primary">Show Users</button></td>
+                <td>{{customer.createdOn}}</td>
+                <td>Auto Updated</td>
+    <td>
+                <button class="btn btn-primary" type="submit">SAVE</button> </td>
+               <td>     <button class="btn btn-warning" (click)='onCancel()'>CANCEL</button></td>
+            </ng-container>
+            <ng-template #elseBlock>
+            <td >{{customer.id}}</td>
+            <td >{{customer.name}}</td>
+            <td >{{customer.website}}</td>
+            <td >{{customer.customerAddress}}</td>
+            <td> <button class="btn btn-primary" (click)='onShowUsers(customer.id)'>Show Users</button></td>
+            <td>{{customer.createdOn}}</td>
+            <td>{{customer.modifiedOn}}</td>
+            <td> <button class="btn btn-warning" id="edit{{customer.id}}" (click)='onEdit(customer.id)'>EDIT</button> </td>
+               <td> <button class="btn btn-danger" (click)='onDelete(customer.id)'>DELETE</button>
+                                        </td>
+                                    </ng-template>
+        </tr>
+    </tbody>
+    </table>
+    </div>
+</form>
+<app-add-data>loading...</app-add-data>

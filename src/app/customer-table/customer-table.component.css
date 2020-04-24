@@ -1,0 +1,7 @@
+.refresh{
+    background-color: seagreen;
+    margin-top: 7px;
+}
+input.ng-invalid{
+    border: 1px solid red;
+}
