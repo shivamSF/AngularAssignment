@@ -7,7 +7,7 @@ import { RoleTableComponent } from './role-table/role-table.component';
 import { RefreshComponent } from './refresh/refresh.component';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {path:"",component: HomeComponent},
   {path:"usersTable",component:UserTableComponent},
   {path:"customersTable",component:CustomerTableComponent},
