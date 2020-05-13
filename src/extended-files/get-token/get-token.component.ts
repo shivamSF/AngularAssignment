@@ -15,6 +15,9 @@ export class GetTokenComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.actRoute.snapshot.queryParams as AuthResponseData
+    if(!this.user){
+      this.navigate()
+    }
     this.authService.handleAuthentication(this.user.email,this.user.authProvider,this.user.code,+this.user.expiresIn)
     this.navigate()
   }
