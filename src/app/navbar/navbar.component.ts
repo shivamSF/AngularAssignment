@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,10 +16,23 @@ export class NavbarComponent implements OnInit {
   otherPage2Link:string;
   otherPage3:string;
   otherPage3Link:string;
-  constructor(private route :ActivatedRoute) { }
+  userSub: Subscription;
+  userEmail
+  title
+  isAuthenticated= false;
+  constructor(private route :ActivatedRoute,
+    private authService:AuthService) { }
 
   ngOnInit(): void {
-    let pathName =this.route.snapshot.routeConfig.path;
+    this.userSub = (this.authService.user).subscribe((user) =>{
+      this.isAuthenticated = !!user;
+      this.userEmail = user.email;
+     });
+     this.onLoad()
+  }
+onLoad(){
+  this.title = this.route.snapshot.paramMap.get('title');
+  let pathName =this.route.snapshot.routeConfig.path;
     if(pathName=='usersTable'){
     this.pageName ="Users Table";
     this.otherPage1 ="Customers Table";
@@ -41,14 +56,22 @@ export class NavbarComponent implements OnInit {
     this.otherPage3 = 'Users Table';
     this.otherPage3Link = "usersTable"
   }
-  else {
+  else  if(pathName == 'rolesTable'){
     this.pageName ="Roles Table";
     this.otherPage1 ="Users Table";
     this.otherPage1Link = "usersTable";
     this.otherPage2 = "Customers table";
     this.otherPage2Link = "customersTable";
   }
+  else if(this.title == 'signUp'){
+    this.pageName = "Sign Up"
   }
-
+  else{
+    this.pageName = "Login"
+  }
+}
+onLogout(){
+  this.authService.logout();
+}
  
 }

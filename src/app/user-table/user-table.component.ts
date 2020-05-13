@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { SaveService } from '../save.service';
@@ -6,13 +6,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
 import { DeleteService } from '../delete.service';
 import { TransferService } from '../transfer.service';
+import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css']
 })
-export class UserTableComponent implements OnInit{
+export class UserTableComponent implements OnInit, OnDestroy{
   userData;
   isClicked = false;
   userId;
@@ -23,17 +25,25 @@ export class UserTableComponent implements OnInit{
   singleRole;
   selectedCustomers;
   isUserPerCustomer = false;
+  userSub: Subscription;
+  isAuthenticated: boolean=false;
   constructor(private http :HttpClient,
      private saveService:SaveService, 
      private route:Router ,
      private location:Location,
      private deleteService:DeleteService,
      private transferService:TransferService,
-     private activeRoute: ActivatedRoute
+     private activeRoute: ActivatedRoute,
+     private authService: AuthService
      ) { }
 
   ngOnInit(): void {
-
+      this.userSub = (this.authService.user).subscribe((user) =>{
+      this.isAuthenticated = !!user;
+     }); 
+     this.onLoad();
+  }
+  onLoad(){
     let pathName= this.activeRoute.snapshot.routeConfig.path;
     if(pathName == 'usersPerCustomer'){
       this.isUserPerCustomer = true;
@@ -55,7 +65,6 @@ export class UserTableComponent implements OnInit{
     this.transferService.getCustomers().subscribe(data => {
      this.customers = data;
    })
-   
   }
   checkCondition(userId){
     if(this.isClicked && this.userId == userId){
@@ -88,5 +97,8 @@ export class UserTableComponent implements OnInit{
     this.route.navigateByUrl("/refresh",{skipLocationChange:true}).then(() => {
       this.route.navigate([decodeURI(this.location.path())]);
     });
+  }
+  ngOnDestroy(){
+    this.userSub.unsubscribe()
   }
 }

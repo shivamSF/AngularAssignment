@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<ng-container *ngIf = 'isLogin'>
+        <div class="login-box">
+            <div *ngIf='isLoading'>
+                <app-loading>load</app-loading>
+            </div>
+    <form (ngSubmit) ="onLogin(f)" #f="ngForm" *ngIf='!isLoading'>
+        <div class="left">
+        <div>
+            <label>USERNAME</label>
+            <input class=" form-control" placeholder="username" ngModel name="username">
+        </div>
+        <div class="top">
+            <label>PASSWORD</label>
+            <input type="password" class=" form-control" ngModel placeholder="password" name="password">
+        </div>
+        <div class=" text-center top">
+            <button type="submit" class="btn btn-primary" >Login</button>|
+            <button class=" btn btn-warning" (click)= 'toggle("signUp")'>Sign Up</button>
+        </div>
+    </div>
+    <div class="or">OR</div>
+    <div class = "right">
+        <button class="btn btn-danger"(click)= 'onGoogleOAuth()' >Login with Google</button>
+    </div>
+</form>
+</div>
+</ng-container>
+<ng-container *ngIf = '!isLogin'>
+    <div class=" login-box">
+        <form (ngSubmit) = 'onSignUp(f)' #f="ngForm">
+            <div class="left">
+            <div>
+                <label>First Name</label>
+                <input class=" form-control" ngModel name="firstName">
+            </div>
+            <div>
+                <label>Middle Name</label>
+                <input class=" form-control" ngModel name="middleName">
+            </div>
+            <div>
+                <label>Last Name </label>
+                <input class=" form-control" ngModel name="lastName">
+            </div>
+            <div>
+                <label>Username</label>
+                <input class=" form-control" ngModel name="username">
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" class=" form-control" ngModel name="email">
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" class=" form-control" ngModel name="password">
+            </div>
+            <div class=" text-center top" >
+                <button type="submit" class=" btn btn-primary">Sign Up</button>|
+                <button class=" btn btn-warning" (click)='toggle("login")' >Login</button>
+            </div>
+        </div>
+        <div class="or">OR</div>
+<div class = "right">
+    <button class="btn btn-danger" (click)= 'onGoogleOAuth()'>Sign Up with Google</button>
+</div>
+        </form>
+    </div>
+</ng-container>

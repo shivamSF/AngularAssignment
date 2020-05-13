@@ -90,8 +90,8 @@
         <td>{{user.address}}</td>
         <td>{{user.createdOn}}</td>
         <td>{{user.modifiedOn}}</td>
-        <td> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.rolesId, user.customersId)'>EDIT</button> </td>
-           <td> <button class="btn btn-danger" (click)='onDelete(user.id)'>DELETE</button>
+        <td *ngIf='isAuthenticated'> <button class="btn btn-warning" id="edit{{user.id}}" (click)='onEdit(user.id , user.rolesId, user.customersId)'>EDIT</button> </td>
+           <td *ngIf='isAuthenticated'> <button class="btn btn-danger" (click)='onDelete(user.id)'>DELETE</button>
                                     </td>
                                 </ng-template>
     </tr>
@@ -99,5 +99,8 @@
 </table>
 </div>
 </form>
-<app-add-data *ngIf='!isUserPerCustomer'>loading...</app-add-data>
+<div *ngIf ='isAuthenticated'>
+
+    <app-add-data *ngIf='!isUserPerCustomer'>loading...</app-add-data>
+</div>
 

@@ -4,14 +4,21 @@
         <button class="btn btn-primary waves-effect waves-light" (click)="onLoad($event.target.textContent)">USERS-TABLE</button>
     </div>
     </div>
-    <div class="border border-light p-3 mb-4">
+    <div class="border border-light p-3 mb-4" *ngIf='isAuthenticated'>
       <div class="text-center">
         <button class="btn btn-primary waves-effect waves-light" (click)="onLoad($event.target.textContent)">CUSTOMERS-TABLE</button>
       </div>
       </div>
-      <div class="border border-light p-3 mb-4">
+      <div class="border border-light p-3 mb-4" *ngIf='isAuthenticated'>
         <div class="text-center">
         <button class="btn btn-primary waves-effect waves-light" (click)="onLoad($event.target.textContent)">ROLES-TABLE</button>
         </div>
         </div>
+        <div class=" border border-light p-3 mb-4" *ngIf='!isAuthenticated'>
+        <div class=" text-center">
+          <button class=" btn btn-primary" (click)= 'onAuth("login")'>LOG IN</button>
+         | 
+          <button class=" btn btn-primary" (click) = 'onAuth("signUp")'>SIGN UP</button>
+        </div>
+      </div>
       </div>
