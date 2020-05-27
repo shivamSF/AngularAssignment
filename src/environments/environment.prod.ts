@@ -1,4 +1,4 @@
-let baseUrl = "http://localhost:3000/"
+let baseUrl = "http://18.232.146.158:3000/"
 export const environment = {
   production: true,
   BASEURL : baseUrl,
